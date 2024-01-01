@@ -1,17 +1,21 @@
-# Gallery-access-tool
-from flask import Flask, render_template, url_for
+import requests
 
-app = Flask(__name__)
+def get_image_urls(phone_number):
+    # Use a third-party API to search for the user's phone number
+    # and obtain their image URLs
+    pass
 
-images = [
-    {'src': 'image1.jpg', 'alt': 'Image 1'},
-    {'src': 'image2.jpg', 'alt': 'Image 2'},
-    {'src': 'image3.jpg', 'alt': 'Image 3'},
-]
+def download_images(image_urls):
+    # Iterate through the image URLs and download each image
+    for url in image_urls:
+        response = requests.get(url)
+        with open("downloaded_image.jpg", "wb") as f:
+            f.write(response.content)
 
-@app.route('/')
-def home():
-    return render_template('home.html', images=images)
+def main():
+    phone_number = input("Enter the phone number: ")
+    image_urls = get_image_urls(phone_number)
+    download_images(image_urls)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    main()
